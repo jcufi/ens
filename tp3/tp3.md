@@ -71,7 +71,7 @@ public class ColisExpress extends Colis {
 
 #### Héritage - Opérations 
 ------------------
-![](uml5/ObjetPostal.svg)
+<img src="uml5/ObjetPostal.svg" />
 
 <small>(sans attributs)</small>
 
