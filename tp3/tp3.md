@@ -3,7 +3,7 @@
 ---
 #### Vue globale
 -------------------------
-![schema complet](uml4/tp3.svg)
+<img src="uml4/tp3.svg" />
 
 (sans attributs ni opérations)
 
