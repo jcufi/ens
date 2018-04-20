@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>reveal-md</title>
+        <link rel="stylesheet" href="./css/reveal.css">
+        <link rel="stylesheet" href="./css/theme/white.css" id="theme">
+        <link rel="stylesheet" href="./css/highlight/zenburn.css">
+        <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print">
+
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides"><section  data-markdown><script type="text/template">### TP6 - Bibliothèque
+----------------------
+
+</script></section><section  data-markdown><script type="text/template">#### Zoom sur la classe d'association
+
+<img src="uml/diag-classe-assoc.svg" style="border:none" width="100%" height="100%" />
+
+*Une même personne peut être contributrice dans plusieurs ouvrages, avec des roles différents*</script></section><section  data-markdown><script type="text/template">#### Equivalence
+<img src="uml/diag-classe-assoc.svg" style="border:none" width="75%" height="75%" />
+
+<img src="uml/alternative4.svg" style="border:none" width="75%" height="75%" />
+
+</script></section><section  data-markdown><script type="text/template">#### Diagramme d'objets
+
+<img src="uml/diag-objets.svg" style="border:none" width="100%" height="100%" />
+<small>
+*Daniel Pennac est auteur de "La fée Carabine" et rédacteur de la préface de "Une langue venue d'ailleurs" de Akira Mizubayashi.*</small>
+</script></section><section  data-markdown><script type="text/template">#### Exemple de modélisation v1
+
+<img src="uml/diag-full.svg" style="border:none" width="100%" height="100%"  />
+</script></section><section  data-markdown><script type="text/template">#### Exemple de modélisation v2
+<img src="uml/diag-assoc-qual.svg" style="border:none" width="100%" height="100%"  />
+
+<small>Avec association qualifiée</small>
+</script></section><section  data-markdown><script type="text/template">#### Indexation des exemplaires par ISBN
+
+    public class Notice {
+        ...
+        Hashmap< String, List<Exemplaire>> exemplaires;
+        public Notice(){
+            exemplaires = new Hashmap< String, List<Exemplaire>>();
+        }
+    }
+
+
+</script></section></div>
+        </div>
+
+        <script src="./lib/js/head.min.js"></script>
+        <script src="./js/reveal.js"></script>
+
+        <script>
+            function extend() {
+              var target = {};
+              for (var i = 0; i < arguments.length; i++) {
+                var source = arguments[i];
+                for (var key in source) {
+                  if (source.hasOwnProperty(key)) {
+                    target[key] = source[key];
+                  }
+                }
+              }
+              return target;
+            }
+
+            // Optional libraries used to extend on reveal.js
+            var deps = [
+              { src: './lib/js/classList.js', condition: function() { return !document.body.classList; } },
+              { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+              { src: './plugin/zoom-js/zoom.js', async: true },
+              { src: './plugin/notes/notes.js', async: true },
+              { src: './plugin/math/math.js', async: true }
+            ];
+
+            // default options to init reveal.js
+            var defaultOptions = {
+              controls: true,
+              progress: true,
+              history: true,
+              center: true,
+              transition: 'default', // none/fade/slide/convex/concave/zoom
+              dependencies: deps
+            };
+
+            // options from URL query string
+            var queryOptions = Reveal.getQueryHash() || {};
+
+            var options = {"slideNumber":"c/t","controls":false,"center":false};
+            options = extend(defaultOptions, options, queryOptions);
+        </script>
+
+
+        <script>
+            Reveal.initialize(options);
+        </script>
+    </body>
+</html>
