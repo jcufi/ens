@@ -16,7 +16,7 @@ Une interface regroupe :
     <pre><code>public void mamethode();</pre></code>
 * des méthodes d'instances abstraites
 * des méthodes d'instances publiques par défaut
-    <pre><code>public default</pre></code>
+    <pre><code>public default void mamethode(){...}</pre></code>
 * des méthodes statiques
     <pre><code>public static void mamethode(){...}</pre></code>
 * des attributs de classe constants public 
