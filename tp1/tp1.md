@@ -1,3 +1,9 @@
+<style>
+.reveal pre{
+        box-shadow: 0px 0px 0px;
+}
+</style>
+
 ### TD/TP 1 Classes java basiques
 ---------------------------
 <br>
@@ -66,13 +72,9 @@ public class Rectangle {
 ------------------
 <br/>
 
-<div style="float:left;width:35%;height:100%;">
-<img src="uml/Rectangle_inst.svg" width="100%" style="border-style:none;" />
-</div>
+<img src="uml/Rectangle_inst.svg"  style="float:left;width:30%;padding-right:10px;height:100%;border-style:none;" /> 
 
-</div>
-<div style="float:right;width:65%;">
-<pre ><code style="overflow-x:hidden;overflow-y:hidden;height:100%;">
+```java
 public class Rectangle {
 // Omission volontaire des attributs
 public static void main(String[] args){
@@ -81,35 +83,35 @@ public static void main(String[] args){
     r = new Rectangle(5f, 5f, "Noir", 0, 0);
     System.out.println("Aire : "+r.aire());
 }}
-</code></pre>
-</div>
+```
+---
+
+#### Diagramme de classe de la Tortue
+------------------
+
+<img src="uml/Tortue.svg" style="border-style:none;width:80%;height:80%" />
 
 ---
 
-#### Diagramme de classe et code JAVA Tortue
+#### Code JAVA de la classe Tortue
 ------------------
-<div style="float:left;width:35%;height:100%;">
-<img src="uml/Rectangle_sansop.png" style="border-style:none;" />
-<small>(Sans opérations)</small>
-</div>
 
-</div>
-<div style="float:right;width:65%">
-<pre ><code style="overflow-y:hidden;height:100%;">
-public class Rectangle {
-    private float longueur;
-    private float largeur;
-    private String couleur;
-    private int positionX;
-    private int positionY;
-    private static Rectangle 
-            plusGrandRectangle;
-    
-    public final static int angle = 90;
-    public final static int nbCotes = 4;}
-
-</code></pre>
-</div>
+```java
+public class Tortue {
+	private int age, esperanceDeVie;
+	private String nom;
+	private boolean hiberne;
+	private String typeNourriture, habitat, sexe;
+	private void miseEnHibernation(boolean miseEnHibernation) {
+		this.hiberne = miseEnHibernation;
+	}
+	public void mange() {
+		System.out.println("Mange..");
+	}
+	public boolean ponte() {
+		return "F".equals(this.sexe);
+	}}
+```
 
 ---
 ### Mise en pratique
@@ -121,10 +123,19 @@ public class Rectangle {
 ------------------
 
 1. Configuration du CLASSPATH (~/.bashrc)
-    <pre><code>export CLASSPATH=${HOME}/Java:.</pre></code>
+```bash
+$ export CLASSPATH=${HOME}/Java:.
+```
 2. Prise en compte de la variable 
-<pre><code>$ source ~/.bashrc</pre></code>
+```bash
+$ source ~/.bashrc
+```
 3. Compilation de l'exemple avec javac
-<pre><code>$ javac SommeEtProduit.java</pre></code>
+```bash
+$ javac SommeEtProduit.java
+```
 4. Execution du programme avec java
-<pre><code>$ java SommeEtProduit</pre></code>
+```bash
+$ java <nom package>.SommeEtProduit
+```
+
