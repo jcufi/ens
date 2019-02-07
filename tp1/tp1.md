@@ -32,9 +32,9 @@
 ---
 #### Exemples
 -------------------------
-* le nombre de cotés est de type int avec une visibilité privée et est constant
+* le nombre de cotés est de type int avec une visibilité publique et est constant
     <pre><code>+ nbCotes : int = 4 {constant} </pre></code>
-* l'aire est un attribut dérivé de type float avec une visibilité publique
+* l'aire est un attribut dérivé de type float avec une visibilité privée
     <pre><code>- / aire : float</pre></code>
 * le plus grand rectangle est un attribut de classe avec une visibilité protected
     <u style="color:white"><pre><code># plusGrandRectangle : Rectangle</pre></code></u>
@@ -132,7 +132,7 @@ $ source ~/.bashrc
 ```
 3. Compilation de l'exemple avec javac
 ```bash
-$ javac SommeEtProduit.java
+$ javac <nom package>/SommeEtProduit.java
 ```
 4. Execution du programme avec java
 ```bash

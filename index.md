@@ -1,6 +1,10 @@
 ### Support TP - HLIN406
 ----------------------------
 
+[TP1 - Introduction](https://jcufi.github.io/ens/tp1/) <br/>
+
+[TP2 - Classes attributs, méthodes](https://jcufi.github.io/ens/tp2/) <br/>
+
 [TP3 - Retour en Laponie](https://jcufi.github.io/ens/tp3/) <br/>
 
 [TP6 - Bibliothèque](https://jcufi.github.io/ens/tp6/) <br/>
