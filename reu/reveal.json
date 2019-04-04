@@ -1,0 +1,8 @@
+{
+"slideNumber" : "c/t", 
+"controls": false,
+"center": false,
+// Parallax background image
+"parallaxBackgroundImage": "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+
+}

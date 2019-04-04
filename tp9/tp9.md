@@ -23,15 +23,19 @@
 
 ---
 #### Modelisation UML
-<img src="uml4/Piece.svg" style="border:none" width="55%" height="55%" />
+<img src="other/Piece.svg" style="border:none" width="140%" height="140%" />
+<small>Extrait de diagramme, focus sur les opérations d'intérêt</small>
+
+---
+#### Modelisation UML new
+
+<embed src="other/PieceMontee.svg" style="margin:0px;" width="100%" height="100%" />
 <small>Diagramme sans attributs/constructeurs</small>
 
 ---
 #### Modelisation UML
 
-
 <img src="uml4/PieceComposite.svg" style="border:none" width="80%" height="80%" />
-
 <small>Diagramme sans attributs/constructeurs</small>
 
 ---

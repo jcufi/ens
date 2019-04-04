@@ -5,71 +5,155 @@
 ---
 #### Modélisation UML
 
-<img src="uml/tp6.svg" style="border:none" width="80%" height="80%" />
+<img src="uml/ContratVieCommune.svg" style="border:none" width="80%" height="80%" />
 <small>(Diagramme partiel attributs/opérations manquantes)</small>
+
+---
+
+#### Modélisation UML
+
+<img src="uml/Personne.svg" style="border:none" width="80%" height="80%" />
+<small>(Diagramme partiel attributs/opérations manquantes)</small>
+
+---
+
+#### Modélisation UML
+
+<img src="uml/Administration.svg" style="border:none" width="80%" height="80%" />
+<small>(Diagramme partiel attributs/opérations manquantes)</small>
+
+---
+
+#### Méthode "résilier" de la classe Personne
+
+<pre  width="100%" height="100%"><code>public class Personne {
+    private ContratVieCommune contratCourant;
+    private ArrayList< ContratVieCommune > contratsArchives; 
+    public void resilier(ContratVieCommune c) {
+        // Le contrat a résilier doit être le contrat courant
+        Personne conjoint;
+        ContratVieCommune contratConjoint;
+        conjoint = contratCourant.getConjoint(this);
+        contratConjoint = conjoint.getContratCourant();
+        if(contratCourant.equals(c) && contratConjoint.equals(c)){
+            this.archiver(c);
+            conjoint.archiver(c);
+        }
+}
+</code></pre>
+<small> Extrait de code, ne contient pas l'ensemble des méthodes/attributs</small>
+
+---
+#### Méthode "getConjoint", classe ContratVieCommune
+
+<pre  width="100%" height="100%"><code>public abstract class ContratVieCommune {
+    private ArrayList< Personne > epoux;
+    public Personne getConjoint(Personne p) {
+        Personne conjoint;
+        if (epoux.size() > 0) {
+            if (p.equals(epoux.get(0))) {
+                conjoint = epoux.get(1);
+            } else { conjoint = epoux.get(0);}
+        }else{
+            conjoint = null;
+        }
+        return conjoint;
+    }
+}
+</code></pre>
+<small> Extrait de code, ne contient pas l'ensemble des méthodes/attributs</small>
+
+
+
+---
+
+#### Méthode "archiver" de la classe Personne
+
+<pre  width="100%" height="100%"><code>public class Personne {
+    private ContratVieCommune contratCourant;
+    private ArrayList< ContratVieCommune > contratsArchives;
+    public void archiver(ContratVieCommune c) {
+        // On recupère l'année courante
+        GregorianCalendar calendar = new GregorianCalendar();
+        int dateFin = calendar.get(Calendar.YEAR);
+        // On enregistre la date de fin dans le contrat
+        c.setDateFin(dateFin);
+        this.getContratsArchives().add(c);
+        this.contratCourant = null;
+    }
+}
+</code></pre>
+<small> Extrait de code, ne contient pas l'ensemble des méthodes/attributs</small>
 
 ---
 #### Zoom sur le constructeur
 
-<pre  width="100%" height="100%"><code>
-public class ContratVieCommune{
-    private ArrayList<> epoux;
+```java
+public abstract class ContratVieCommune{
+    private ArrayList< Personne > epoux;
     private int numeroContrat;
+    private Administration administration;
     private static int compteurNumeroContrat = 0;
-    public ContratVieCommune(Personne a, Personne b) {
-        epoux = new ArrayList<>(2);
+    public ContratVieCommune(Administration m,
+                             Personne a, Personne b) {
+        administration = m;
+        epoux = new ArrayList< Personne >(2);
         // On incremente le compteur
         compteurNumeroContrat = compteurNumeroContrat + 1;
         // On affecte le numero de contrat
         numeroContrat = compteurNumeroContrat;
         contracter(a, b);
-    }
-}
-</code></pre>
----
-#### Méthode contracter de la classe Pacs ?
-<pre><code>
-public class Pacs extends ContratVieCommune {
-	public Pacs(Personne a, Personne b) {
-		super(a, b);
-	}	
-	
-	protected void contracter(Personne a, Personne b) {
-	// ?
-	}
-
-}
-</code></pre>
-
+    }}
+```
 ---
 
 #### Méthode "contracter" de la classe Pacs
-<pre><code>
+
+```java
 public class Pacs extends ContratVieCommune {
-	...
-    public Pacs(Personne a, Personne b) {
-		super(a, b);
+    public Pacs(Tribunal t, Personne a, Personne b) {
+		super(t, a, b);
 	}		
+	@Override
 	protected void contracter(Personne a, Personne b) {
-        // Si aucun contrat n'est en cours le PACS est contracté
-		if (a.getContratCourant() == null && b.getContratCourant() == null) {
+		if (a.getContratCourant() == null && 
+            b.getContratCourant() == null) {
 			initialiserContrat(a, b);
 		} else {
 			System.err.println(MessagesErreur.CONTRAT_EN_COURS);
 		}
+
 	}
+```
+<small> Extrait de code, ne contient pas l'ensemble des méthodes/attributs</small>
 
+
+---
+
+#### Méthode "contracter" de la classe Mariage
+
+```java 
+public class Mariage extends ContratVieCommune {
+   protected void contracter(Personne a, Personne b) {
+        if(a.estMariee() || b.estMariee()){
+            System.err.println(MessagesErreur.DEJA_MARIEE);
+            return;}
+        if(a.estPacsee()){
+            a.resilier(a.getContratCourant());}
+        if(b.estPacsee()){
+            b.resilier(b.getContratCourant());}
+        initialiserContrat(a, b);
+        }}}
 }
-</code></pre>
-
+```
+<small> Extrait de code, ne contient pas l'ensemble des méthodes/attributs</small>
 > Ou met-on la méthode initialiserContrat ?
 
 ---
 
 #### Méthode "initialiserContrat"
-<pre><code>
+```java
 public class ContratVieCommune{
-    ...
     protected void initialiserContrat(Personne a, Personne b){        
         GregorianCalendar calendar = new GregorianCalendar();
         int dateDebut = calendar.get(Calendar.YEAR);
@@ -82,4 +166,7 @@ public class ContratVieCommune{
         b.setContratCourant(this);        
     }
 }
-</code></pre>
+```
+<small> Extrait de code, ne contient pas l'ensemble des méthodes/attributs</small>
+
+
