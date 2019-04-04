@@ -6,15 +6,7 @@
 
 ### TD/TP 1 Classes java basiques
 ---------------------------
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<p style="color:#78a22f;">&#x2709; julien.cufi@inra.fr</p>
+
 
 ---
 #### Rappel

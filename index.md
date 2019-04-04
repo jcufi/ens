@@ -7,6 +7,8 @@
 
 [TP3 - Retour en Laponie](https://jcufi.github.io/ens/tp3/) <br/>
 
+[TP4 - Associations](https://jcufi.github.io/ens/tp4/) <br/>
+
 [TP6 - Bibliothèque](https://jcufi.github.io/ens/tp6/) <br/>
 
 [TP7 - Relations maritales](https://jcufi.github.io/ens/tp7/) <br/>
