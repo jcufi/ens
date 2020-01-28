@@ -2,13 +2,15 @@
 .reveal pre{
         box-shadow: 0px 0px 0px;
 }
+
 </style>
 
-### Présentation docker - CATI XXX
----------------------------
-
+### Présentation docker 
+#### CATI DIISCICO 
+Julien Cufi - 04/02/2020
+<!-- .slide: class="center" -->
 ---
-#### Présentation docker - CATI XXX
+#### Présentation docker - CATI DIISCICO 
 ---------------------
 
 1. Docker introduction
@@ -19,16 +21,6 @@
 
 4. Retours d'expérience
 
-
----
-#### Docker introduction
----------------------
-*Contexte : Qui l'a crée et pourquoi ?*
-
-* Docker est un projet OpenSource sous licence Apache crée en 2013 par Solomon Hykes.
-* Le projet est supporté par la communauté et par l'entreprise Docker Inc.
-* TODO :Activité sur github ?
-* TODO :pourquoi
 
 ---
 #### Docker introduction
@@ -53,27 +45,82 @@ Docker est une technologie permettant d'exécuter une application dans un enviro
 #### Docker introduction
 ---------------------
 
+*Je fais déjà ça avec mes machines virtuelles !*
+
+Dans une machine virtuelle, on simule une machine (ie. toute la partie hardware), et le système d'exploitation ce qui est beaucoup plus lourd que de démarrer un conteneur.
+
+![](virtualization-vs-containers.png)
+
+---
+#### Docker introduction
+---------------------
+*Qui l'a crée et pourquoi ?*
+
+* Docker est un projet OpenSource sous licence Apache 2.0 crée en 2013 par Solomon Hykes.
+Le projet est supporté par la communauté et par l'entreprise Docker Inc.
+
+* Crée a l'origine pour la société dotCloud (PaaS)
+
+---
+#### Docker introduction
+---------------------
+
+![](./engine-components-flow.png)
+
+<small>Docker s'appuie sur une architecture client/serveur, un client en ligne de commande envoie des instructions (via une API REST) au serveur (daemon docker).</small>
+
+---
+#### Docker introduction
+---------------------
+
 *Comment ça marche ?*
 
-Docker s'appuie sur les fonctionnalités d'isolation du noyau Linux (cgroup, namespaces, ...) pour fournir un environnement d'éxecution étanche.
+A l'origine Docker s'appuie sur LXC (LinuX container) et les fonctionnalités d'isolation du noyau Linux (cgroup, namespaces, ...) pour fournir un environnement d'exécution étanche.
 
-<!--Parmis ces fonctionnalités citons les espaces de nom Linux (isolation du système de fichier, des processus, du  réseau), et les groupes de contrôle (limitation des ressources)-->
-
-
-&rArr; L'utilisation de Docker requiert des privilèges élevés sur la machine
+&rArr; Problème portabilité
 <!-- .element: class="fragment" -->
 
 ---
 #### Docker introduction
 ---------------------
 
+* Remplacement de LXC par libcontainer
+* Modularisation de la partie serveur
+    * création d'outils spécifiques (creation container, gestion du cycle de vie...)
+    * implémentation de référence des spécifications émise par Open Container Initiative...
+
+---
+#### Docker introduction
+---------------------
+
+Open Container Initiative est un projet de la Fondation Linux pour la normalisation des conteneurs
+(environnement d'exécution d'un conteneur, images et référentiel d'images).
+
+<img src="./open_container_project.png" height="80%" width="80%">
+
+<!--Parmis ces fonctionnalités citons les espaces de nom Linux (isolation du système de fichier, des processus, du  réseau), et les groupes de contrôle (limitation des ressources)
+UFS-->
+<!--&rArr; L'utilisation de Docker requiert des privilèges élevés sur la machine-->
+
+---
+#### Docker introduction
+---------------------
+
 *Comment je l'utilise ?*
-* Docker est disponible sur Linux / Windows / Mac
-* Docker s'appuie sur une architecture client/serveur, un client en ligne de commande envoie des instructions (via une API REST) au serveur (daemon linux).
+
+Docker est disponible sur Linux / Windows / Mac (VM)
+Deux versions EE et CE (&ne; niveaux de support)
+
 
 
 &rArr; On l'utilisera donc au travers de lignes de commandes ...
 <!-- .element: class="fragment" -->
+
+
+---
+
+*passons à la pratique...* 
+<!-- .slide: class="center" -->
 
 ---
 #### Docker : Premier cas d'utilisation
@@ -81,16 +128,16 @@ Docker s'appuie sur les fonctionnalités d'isolation du noyau Linux (cgroup, nam
 
 *Je souhaite démarrer une base postgres v12 pour effectuer quelques tests.*
 
-1. Recherche d'une image existante sur DockerHub
+Recherche d'une image existante sur DockerHub
+https://hub.docker.com/
+<img src="./dockerhub.png" height="80%" width="80%">
 
 
 ---
 #### Docker : Premier cas d'utilisation
 ---------------------
 
-2. Démarrage d'un conteneur basé sur l'image postgres:12
-
-Le client interroge le DockerHub, et télécharge l'image
+Démarrage d'un conteneur basé sur l'image postgres:12
 
 ```bash 
 $docker run -it postgres:12
@@ -100,6 +147,7 @@ Unable to find image 'postgres:12' locally
 65a7b8e7c8f7: Download complete
 b7a5676ed96c: Download complete
 ```
+Le client demande le démarrage d'un conteneur, le serveur ne connaissant pas l'image il interroge le DockerHub et la télécharge.
 
 ---
 #### Docker : Premier cas d'utilisation
@@ -114,7 +162,7 @@ listening on IPv4 address "0.0.0.0", port 5432
 database system is ready to accept connections
 ```
 
-&rArr; Youpi
+&rArr; Youpi ?
 <!-- .element: class="fragment" -->
 
 ---
@@ -131,15 +179,11 @@ Le conteneur est un environnement isolé de l'hôte donc *par défaut* :
 &rArr; Montage d'un volume partagé
 <!-- .element: class="fragment" -->
 
-<!--*Correspondance entre un port de l'hôte et le port du container ?*-->
-<!--*Création d'un point de montage entre le conteneur et l'hôte*-->
-
-
 ---
 #### Docker introduction
 ---------------------
 
-L'image est déjà téléchargé
+*On recommence*
 
 ```bash 
 $docker volume create pgdata
@@ -148,7 +192,7 @@ $docker run -it -p 5432:5432
             -v pgdata:/var/lib/postgresql/data postgres:12
 
 ```
-
+Remarque : l'image est déjà téléchargée
 
 
 ---
@@ -161,44 +205,7 @@ Lorsque je tape la commande :
 2. le démon va executer l'ensemble des instructions présente dans l'image, cette étape est appelée le ***build*** de l'image
 3. un conteneur va démarrer afin de rendre l'application accessible sur mon poste
 
-
-#### Docker introduction
----------------------
-*Démonstration*
-
-```bash
-$ docker run --rm chuanwen/cowsay
- ________________________________________ 
-/ In defeat, unbeatable; in victory,     \
-| unbearable.                            |
-|                                        |
-\ -- W. Churchill, on General Montgomery /
- ---------------------------------------- 
-        \   ^__^                          
-         \  (oo)\_______                  
-            (__)\       )\/\              
-                ||----w |                 
-                ||     ||                 
-```
-
-* Du point de vue de l'application, celle ci s'execute dans sa distribution Linux spécifique et avec son propre système de fichiers.
-    
----
-#### Docker introduction
--------------------------
-
-L'image Docker :
-
-```bash
-FROM ubuntu:14.04
-MAINTAINER Chuanwen Chen "chuanwen@gmail.com"
-
-RUN apt-get update && apt-get install -y cowsay fortunes \
-    && rm -rf /var/lib/apt/lists/*
-
-CMD /usr/games/fortune -a | /usr/games/cowsay
-```
-
+<!--Du point de vue de l'application, celle ci s'execute dans sa distribution Linux spécifique et avec son propre système de fichiers.-->
 
 ---
 #### Docker introduction
@@ -210,11 +217,13 @@ CMD /usr/games/fortune -a | /usr/games/cowsay
 #### Docker introduction
 ---------------------
 
-*Je fais déjà ça avec mes machines virtuelles !*
-
-Dans une machine virtuelle, tout le hardware est émulé ce qui est beaucoup moins performant.
 
 
 
-   
+---
+#### Liens
+---------------------
+<small>
+Lien vers projet OpenSource https://github.com/moby
 
+</small>
