@@ -17,49 +17,36 @@
   font-family: 'Roboto Condensed', sans-serif, Arial, Helvetica;
   color: black; 
 }
-/*li{
-    font-size:0.9em !important;
-}
-.reveal section p {
-    font-size:0.9em !important;
-}
-.reveal section pre code {
-    font-size:0.9em !important;
-}*/
 .reduced{
     font-size:0.9em !important;
 }
 .exp{
     font-size:0.5em !important;
 }
-
 .hum{
     font-size:0.3em !important;
 }
-
 </style>
 
 ### Présentation docker 
+<img src="./docker-whale.jpeg" height="20%" width="20%">
 #### CATI DIISCICO 
 Julien Cufi
-
 <small>04/02/2020</small>
 <!-- .slide: class="center" -->
 ---
 #### Présentation docker - CATI DIISCICO 
 ---------------------
 
-1. Docker introduction
+1. Introduction et principes
 
-2. Docker pour l'utilisateur
+2. Cas d'utilisation
 
-3. Docker pour le développeur
-
-4. Retours d'expérience
+3. Retours d'expérience
 
 
 ---
-#### Docker introduction
+#### Introduction et principes
 ---------------------
 
 *Qu'est-ce que c'est ?*
@@ -67,7 +54,7 @@ Julien Cufi
 Docker est une technologie permettant d'exécuter une application dans un environnement isolé, comprenant l'application mais également l'ensemble des dépendances nécessaires a son fonctionnement.
 
 ---
-#### Docker introduction
+#### Introduction et principes
 ---------------------
 *Quelques mots de vocabulaire...*
 
@@ -78,7 +65,7 @@ Docker est une technologie permettant d'exécuter une application dans un enviro
 * Un catalogue public d'images accessible sur le web permet de les mutualiser, ce catalogue s'appelle le ***DockerHub***.
 
 ---
-#### Docker introduction
+#### Introduction et principes
 ---------------------
 *Qui l'a crée et pourquoi ?*
 
@@ -89,7 +76,7 @@ Docker est une technologie permettant d'exécuter une application dans un enviro
 * Crée a l'origine pour la société dotCloud (PaaS)
 
 ---
-#### Docker introduction
+#### Introduction et principes
 ---------------------
 
 ![](./engine-components-flow.png)
@@ -97,7 +84,7 @@ Docker est une technologie permettant d'exécuter une application dans un enviro
 <small>Docker s'appuie sur une architecture client/serveur, un client en ligne de commande envoie des instructions (via une API REST) au serveur (daemon docker / docker engine).</small>
 
 ---
-#### Docker introduction
+#### Introduction et principes
 ---------------------
 
 *Comment ça marche ?*
@@ -107,8 +94,11 @@ A l'origine Docker s'appuie sur LXC (LinuX container) et les fonctionnalités d'
 &rArr; Problème de portabilité pour Docker Inc.
 <!-- .element: class="fragment" -->
 
+<!--Parmis ces fonctionnalités citons les espaces de nom Linux (isolation du système de fichier, des processus, du  réseau), et les groupes de contrôle (limitation des ressources)-->
+
+
 ---
-#### Docker introduction
+#### Introduction et principes
 ---------------------
 
 * Remplacement de LXC par libcontainer
@@ -117,10 +107,11 @@ A l'origine Docker s'appuie sur LXC (LinuX container) et les fonctionnalités d'
     * implémentation de référence des spécifications émise par Open Container Initiative...
 
 ---
-#### Docker introduction
+#### Introduction et principes
 ---------------------
 
 *Open Container Initiative* 
+
 * Projet crée en 2015 et supporté par la Fondation Linux 
 * Objectif : la normalisation des conteneurs 
     + environnement d'exécution des conteneurs
@@ -128,19 +119,15 @@ A l'origine Docker s'appuie sur LXC (LinuX container) et les fonctionnalités d'
 * Crée par Docker Inc. avec quelques petites sociétés...
 
 <!-- .element: class="reduced" -->
-<img src="./open_container_project.png" height="80%" width="80%">
-
-<!--Parmis ces fonctionnalités citons les espaces de nom Linux (isolation du système de fichier, des processus, du  réseau), et les groupes de contrôle (limitation des ressources)
-UFS-->
-<!--&rArr; L'utilisation de Docker requiert des privilèges élevés sur la machine-->
+<img src="./open_container_project.png" height="60%" width="60%">
 
 ---
-#### Docker introduction
+#### Introduction et principes
 ---------------------
 
 *Je fais déjà ça avec mes machines virtuelles !*
 
-Dans une machine virtuelle, on simule une machine (ie. toute la partie hardware), de plus a son système d'exploitation propre ce qui est beaucoup plus lourd qu'un conteneur.
+Dans une machine virtuelle, on simule une machine (ie. toute la partie hardware) et chaque machine virtuelle a son propre système d'exploitation.
 <!-- .element: class="reduced" -->
 
 <img src="./Blog.-Are-containers-..VM-Image-1.png" height="80%" width="80%">
@@ -148,7 +135,7 @@ Dans une machine virtuelle, on simule une machine (ie. toute la partie hardware)
 
 
 ---
-#### Docker introduction
+#### Introduction et principes
 ---------------------
 
 *Comment je l'utilise ?*
@@ -166,26 +153,36 @@ Dans une machine virtuelle, on simule une machine (ie. toute la partie hardware)
 <!-- .slide: class="center" -->
 
 ---
-#### Docker : 1<sup class="exp">er</sup> cas d'utilisation
+#### Cas d'utilisation
+---------------------
+
+Deux cas d'utilisation 
+
+* Pour l'admin sys qui souhaite tirer parti de Docker pour installer un logiciel et le tester
+
+* Pour le développeur qui souhaite diffuser un logiciel
+
+---
+#### Cas d'utilisation
 ---------------------
 *Quelques commandes de base*
 
 
 ```bash 
 # Télécharger une image
-$docker image pull <image>
+$ docker image pull <image>
 
 # Démarrer un conteneur
-$docker container run <image>
+$ docker container run <image>
 
 # Lister les conteneurs démarrés
-$docker container ps
+$ docker container ps
 
 # Stopper un conteneur
-$docker container stop <nom conteneur / identifiant>
+$ docker container stop <nom conteneur / identifiant>
 
 # Supprimer un conteneur 
-$docker container rm <nom conteneur / identifiant>
+$ docker container rm <nom conteneur / identifiant>
 ```
 
 <!-- .slide: class="reduced" -->
@@ -213,7 +210,7 @@ $docker container rm <nom conteneur / identifiant>
 Démarrage d'un conteneur basé sur l'image postgres:12
 
 ```bash 
-$docker container run -it postgres:12
+$ docker container run -it postgres:12
 Unable to find image 'postgres:12' locally
 12: Pulling from library/postgres
 8ec398bc0356: Downloading [====>]  11.72MB/27.09MB
@@ -242,9 +239,15 @@ database system is ready to accept connections
 #### Docker : 1<sup class="exp">er</sup> cas d'utilisation
 ---------------------
 
-Le conteneur est un environnement isolé de l'hôte donc *par défaut* :
-* Pas de communication réseau
-* Pas de partage de données
+*Quelques particularités sur les conteneurs*
+
+* Environnement isolé de l'hôte donc *par défaut* :
+    * Pas de communication réseau
+    * Pas de partage de données
+* Ephémères
+    * Tant qu'ils ne sont pas supprimés les fichiers présents dans le conteneur sont persistés.
+
+<!--Du point de vue de l'application, celle ci s'execute dans sa distribution Linux spécifique et avec son propre système de fichiers.-->
 
 &rArr; Association de port hôte/conteneur
 <!-- .element: class="fragment" -->
@@ -253,7 +256,7 @@ Le conteneur est un environnement isolé de l'hôte donc *par défaut* :
 <!-- .element: class="fragment" -->
 
 ---
-#### Docker introduction
+#### Docker : 1<sup class="exp">er</sup> cas d'utilisation
 ---------------------
 
 *On recommence*
@@ -278,14 +281,14 @@ $docker container run -it
 <!-- .slide: class="reduced" -->
 
 ---
-#### Docker 
+#### Docker : 1<sup class="exp">er</sup> cas d'utilisation
 ---------------------
 
 *Pour les curieux*
 
 ```bash
-$docker volume inspect pgdata
-[
+$ docker volume inspect pgdata
+[ 
     {
         "CreatedAt": "2019-02-26T17:12:59+01:00",
         "Driver": "local",
@@ -296,32 +299,26 @@ $docker volume inspect pgdata
         "Scope": "local"
     }
 ]
-$ls /var/lib/docker/volumes/pgdata/_data
+$ ls /var/lib/docker/volumes/pgdata/_data
 postgresql.conf base     pg_commit_ts  pg_ident.conf  pg_notify
 ...
 ```
 <!-- .slide: class="reduced" -->
 ---
-#### Docker 
+#### Docker : 1<sup class="exp">er</sup> cas d'utilisation
 ---------------------
-*Quelques particularités sur les conteneurs*
 
-* Ephémères
-* Isolés de l'hôte
-* Tant qu'ils ne sont pas supprimés les fichiers présents dans le conteneur existent
+Slide sur docker-compose ?
 
-
-<!--Du point de vue de l'application, celle ci s'execute dans sa distribution Linux spécifique et avec son propre système de fichiers.-->
 
 ---
 #### Docker : 2<sup class="exp">eme</sup> cas d'utilisation
 ---------------------
 
->  J'ai implémenté un algorithme, je souhaite le mettre a disposition
+>  J'ai implémenté un algorithme, je souhaite le mettre a disposition.
 
 Objectif : 
-
-Faciliter la reproductibilité des résultats en minimisant les étapes d'installation* du logiciel
+Faciliter la reproductibilité des résultats en minimisant les étapes d'installation du logiciel
 
 &rArr; Nécessite de créer une image Docker propre à son logiciel
 
@@ -330,17 +327,22 @@ Faciliter la reproductibilité des résultats en minimisant les étapes d'instal
 <!-- .slide: class="reduced" -->
 
 ---
-#### Docker
+#### Docker : Création d'image 1/4
 ---------------------
-*Focus sur une image Docker*
 
 * Une image docker est un fichier texte nommé Dockerfile respectant un language propre a Docker
+
 * On peut "hériter" d'autres images existantes pour les étendre
+
 * Il contient l'ensemble des instructions nécessaires a l'installation du logiciel
+
 * Il est nécessaire de compiler le fichier Dockerfile pour l'utiliser
 
+* L'image réalisée peut rester en local (sans être partagée sur le DockerHub)
+<!-- .slide: class="reduced" -->
+
 ---
-#### Docker
+#### Docker : Création d'image 2/4
 ---------------------
 
 Exemple de fichier Dockerfile :
@@ -351,10 +353,19 @@ RUN apt-get update && \
     apt-get install -y cowsay
 ENTRYPOINT ["/usr/games/cowsay"]
 ```
+
+* FROM : Indique de quelle image existante l'on hérite
+* RUN  : Permet de lancer des commandes d'installation
+* ENTRYPOINT : Définit le point d'entrée du conteneur
+
+
+---
+#### Docker : Création d'image 3/4
+---------------------
 Compilation de l'image :
 
 ```bash
-$docker image build -t cow .
+$ docker image build -t cow .
 Step 1/3 : FROM ubuntu:latest                                 
  ---> dd6f76d9cc90                                            
 Step 2/3 : RUN apt-get update &&     apt-get install -y cowsay
@@ -370,12 +381,12 @@ Successfully tagged cow:latest
 <!-- .slide: class="reduced" -->
 
 ---
-#### Docker
+#### Docker : Création d'image 4/4
 ---------------------
 
 Utilisation de l'image
 ```bash
-$docker container run cow "Je suis une vache"
+$ docker container run cow "Je suis une vache"
  ___________________                
 < Je suis une vache >               
  -------------------                
@@ -388,10 +399,18 @@ $docker container run cow "Je suis une vache"
 <!-- .slide: class="reduced" -->
 
 ---
-#### Docker
+#### Docker : 2<sup class="exp">eme</sup> cas d'utilisation
 ---------------------
 
-*Retour sur l'exemple initial*
+>  J'ai implémenté un algorithme, je souhaite le mettre a disposition.
+
+Cette implémentation requiert :
+* un jeu de données de test
+* une version de java, de maven / ant
+
+---
+#### Docker : 2<sup class="exp">eme</sup> cas d'utilisation
+---------------------
 
 ```docker
 # Le fichier Dockerfile
@@ -409,71 +428,83 @@ CMD ["mvn", "package", "exec:java", ..."]
 VOLUME [ "/app/results"]
 ```
 
-
 ```docker
 # Installation du logiciel
-$docker image build -t align-tool .
-# Lancement du logiciel
-$docker container run --rm -it -v ${pwd}/results:/app/results align-tool
+$ docker image build -t align-tool .
+# Lancement du logiciel sous linux
+$ docker container run --rm -it -v ${pwd}/results:/app/results align-tool
+# sous windows
+$ docker container run --rm -it -v %cd%/results:/app/results align-tool
 ```
-
 <!-- .slide: class="reduced" -->
 
 ---
-#### Docker
+#### Retour d'expérience
 ---------------------
 
+Notre besoin :
+* Mise en place de deux plateformes (test et production) avec nos applications
+* Automatiser l'installation
+    * applications web JAVA, Ruby, Python
+    * base de données relationnelles, sémantiques, NoSQL
+    * serveur de calcul R
+* Mutualiser les installations
+* Gérer "proprement" les différentes versions des dépendances (ex: JAVA)
+<!-- .slide: class="reduced" -->
 
----
-#### Docker : Retours d'expériences
----------------------
-Notre besoin
-* Mise en place de deux plateforme (test et production)
-* Automatiser l'installation des logiciel
-i. 8 applications web
+<!--8 applications web
 ii. Schémas d'efactor, d'atweb, de spo2q, de meatylab, capex-ee, mychoice, de fuseki, de damn  = 4 BD sem (2 graphdb, 1 fuseki), 7 serveurs d'app (5 JAVA, 1 truc de capex, 1 ruby), 2 serveur R, 3 bases relationnelles (2 postgres, 1 mysql), 2 bases NoSQL = 9 BD, 7 Serv d'app, 2 serveurs R
-~18 BD et serveurs
-X2 environnement de test et de prod oblige = 36 "composants"
-
+~18 BD et serveurs X2 environnement de test et de prod oblige = 36 "composants"-->
 
 ---
-#### Docker
+#### Retour d'expérience
 ---------------------
 * Complexité
-    + Unix : lu, parlé, écrit
-    + Problèmes liés au LOCALE
-    + Impossibilité de charger des modules dans le kernel (modprobe)
+    * Unix : lu, parlé, écrit
+    * Problèmes liés au fait que docker soit monoprocessus
+    * Impossibilité de charger des modules dans le kernel (modprobe)
+    * Beaucoup de commandes ...
+* Projet en constante évolution
 
 ---
-#### Docker
+#### Retour d'expérience
 ---------------------
-* Bonnes pratiques (commune)
-    * Bon sens : ne pas récupérer nimp sur le DockerHub
-        * Etude sur les failles dans les images Docker
-    * Ne pas monter la racine / dans le conteneur (\\U+1F628)
-    * Utilisateur dédié
-
----
-#### Docker
----------------------
-
-* Bonnes pratiques (commune a l'admin sys)
+* Bonnes pratiques (communes)
+    * Bon sens : Ne pas récupérer aveuglement des images sur le DockerHub
+    * Ne pas monter la racine / dans le conteneur
+    * Groupe et utilisateur dédiés
     * Ne pas surcharger le conteneur avec des paquets inutiles
     * Logiciel a maintenir à jour
 
-* Sécurité 
-    * Ne nous affranchi pas d'une configuration respectant les règles de sécurité en vigueur
-
-
 ---
-#### Docker
+#### Retour d'expérience
 ---------------------
 
+* Sécurité 
+    * Nécessiterait une présentation dédiée!
+    * Ne nous affranchit pas d'une configuration respectant les règles de sécurité en vigueur
+    * Docker requiert des droits élevés : les conteneurs sont executés par root
+    &rArr; Directive USER dans le DockerFile, configuration du serveur dockeremap
+    &rArr; Benchmark de sécurité
 
+---
+#### Retour d'expérience
+---------------------
 
+---
+
+Merci de votre attention !
+
+Des questions ?
+
+<!-- .slide: class="center" -->
 ---
 #### Liens
 ---------------------
 
 * Lien vers projet Docker OpenSource https://github.com/moby
+* Documentation Docker https://docs.docker.com/
 * Docker security bench https://github.com/docker/docker-bench-security
+* Gif provenant de https://giphy.com/
+
+<!-- .slide: class="reduced" -->
