@@ -6,15 +6,7 @@
 
 ### TD/TP 1 Classes java basiques
 ---------------------------
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<p style="color:#78a22f;">&#x2709; julien.cufi@inra.fr</p>
+
 
 ---
 #### Rappel
@@ -59,7 +51,6 @@ public class Rectangle {
     private int positionY;
     private static Rectangle 
             plusGrandRectangle;
-    
     public final static int angle = 90;
     public final static int nbCotes = 4;}
 
