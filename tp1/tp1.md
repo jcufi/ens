@@ -51,7 +51,6 @@ public class Rectangle {
     private int positionY;
     private static Rectangle 
             plusGrandRectangle;
-    
     public final static int angle = 90;
     public final static int nbCotes = 4;}
 
